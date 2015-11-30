@@ -1,0 +1,93 @@
+#import <Foundation/Foundation.h>
+#import "Promise.h"
+
+{{#enums}}
+
+    typedef NS_ENUM(NSUInteger, {{name}}) {
+
+    };
+
+{{/enums}}
+
+{{#models}}
+    @class {{name}};
+{{/models}}
+
+{{#models}}
+
+    @interface {{name}} : TEModel
+
+    {{#props}}
+        {{#if this.type.is_ref?}}
+            @property(nonatomic, strong, readonly) {{this.type.name}} *{{this.name}};
+        {{else}}
+            @property(nonatomic, assign, readonly) {{this.type.name}} {{this.name}};
+        {{/if}}
+    {{/props}}
+
+    @end
+
+    @interface {{name}}Builder : NSObject
+
+    {{#props}}
+        {{#if this.type.is_ref?}}
+            @property(nonatomic, strong) {{this.type.name}} *{{this.name}};
+        {{else}}
+            @property(nonatomic, assign) {{this.type.name}} {{this.name}};
+        {{/if}}
+    {{/props}}
+
+    @end
+
+    typedef void(^{{name}}BuilderBlock)({{name}}Builder *builder);
+
+{{/models}}
+
+// Actors definitions
+
+{{#actors}}
+    @class {{name}};
+    @protocol {{name}}Consumer;
+{{/actors}}
+
+{{#actors}}
+
+    //
+    // {{name}} definitions start
+    //
+
+    @interface {{name}}Ref : TEActorRef
+
+    {{#actions}}
+        {{#if this.result_type}}
+            - (Promise<{{this.result_type.name}}*>*)send{{this.type.simple_name}}:({{this.type.name}}BuilderBlock)builderBlock;
+        {{else}}
+            - (Promise *)send{{this.type.simple_name}}:({{this.type.name}}BuilderBlock)builderBlock;
+        {{/if}}
+    {{/actions}}
+
+    @end
+
+    @protocol {{name}}Wireframe {{linked_actors_consumers this}}
+
+    {{#actions}}
+        {{#if this.result_type}}
+            - (Promise<{{this.result_type.name}}*>*)on{{this.type.simple_name}}:({{this.type.name}} *){{uncapitalize this.type.simple_name}};
+        {{else}}
+            - (Promise *)on{{this.type.simple_name}}:({{this.type.name}} *){{uncapitalize this.type.simple_name}};
+        {{/if}}
+    {{/actions}}
+
+    @end
+
+    @protocol {{name}}Consumer
+
+    @property(nonatomic, strong) {{name}}Ref *{{uncapitalize simple_name}}Ref;
+
+    @end
+
+    //
+    // {{name}} definitions end
+    //
+
+{{/actors}}

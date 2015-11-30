@@ -112,7 +112,7 @@ module Moctor
   end
 
   class EnumDefinition
-    attr_reader :name, :cases
+    attr_accessor :name, :cases
 
     def initialize(name, &block)
       @name  = name
@@ -137,7 +137,7 @@ module Moctor
   end
 
   class ActorDefinition
-    attr_reader :name, :usages, :actions
+    attr_accessor :name, :usages, :actions
 
     def initialize(name, &block)
       @name    = name
@@ -165,11 +165,11 @@ module Moctor
           raise "Unknown action signature: #{signature}"
       end
 
-      @actions << ActionPropDefinition.new(action_name, action_type, &block)
+      @actions << ActionDefinition.new(action_name, action_type, &block)
     end
   end
 
-  class ActionPropDefinition
+  class ActionDefinition
     attr_reader :name, :type, :props
 
     def initialize(name, type, &block)
@@ -193,7 +193,7 @@ module Moctor
   end
 
   class InterfaceDefinition
-    attr_reader :name, :props
+    attr_accessor :name, :props
 
     def initialize(name, &block)
       @name = name
@@ -214,7 +214,7 @@ module Moctor
   end
 
   class TypeDefinition
-    attr_reader :name, :base, :props, :interfaces
+    attr_accessor :name, :base, :props, :interfaces
 
     def initialize(name, base = nil, &block)
       @name       = name
