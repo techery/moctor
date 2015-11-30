@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'moctor/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "moctor"
+  spec.name          = 'moctor'
   spec.version       = Moctor::VERSION
   spec.authors       = ['Serhij Korochanskyj', 'Sergey Zenchenko']
   spec.email         = %w(serge.k@techery.io serge.z@techery.io)
