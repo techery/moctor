@@ -59,10 +59,10 @@
     @interface {{name}}Ref : TEActorRef
 
     {{#actions}}
-        {{#if this.result_type}}
-            - (Promise<{{this.result_type.name}}*>*)send{{this.type.simple_name}}:({{this.type.name}}BuilderBlock)builderBlock;
+        {{#if this.type}}
+            - (Promise<{{this.type}}*>*)send{{this.type}}:({{this.type}}BuilderBlock)builderBlock;
         {{else}}
-            - (Promise *)send{{this.type.simple_name}}:({{this.type.name}}BuilderBlock)builderBlock;
+            - (Promise *)send{{this.type}}:({{this.type}}BuilderBlock)builderBlock;
         {{/if}}
     {{/actions}}
 
@@ -71,10 +71,10 @@
     @protocol {{name}}Wireframe {{linked_actors_consumers this}}
 
     {{#actions}}
-        {{#if this.result_type}}
-            - (Promise<{{this.result_type.name}}*>*)on{{this.type.simple_name}}:({{this.type.name}} *){{uncapitalize this.type.simple_name}};
+        {{#if this.type}}
+            - (Promise<{{this.type}}*>*)on{{this.name}}:({{this.name}} *){{uncapitalize this.name}};
         {{else}}
-            - (Promise *)on{{this.type.simple_name}}:({{this.type.name}} *){{uncapitalize this.type.simple_name}};
+            - (Promise *)on{{this.name}}:({{this.name}} *){{uncapitalize this.name}};
         {{/if}}
     {{/actions}}
 
@@ -82,7 +82,7 @@
 
     @protocol {{name}}Consumer
 
-    @property(nonatomic, strong) {{name}}Ref *{{uncapitalize simple_name}}Ref;
+    @property(nonatomic, strong) {{name}}Ref *{{uncapitalize name}}Ref;
 
     @end
 

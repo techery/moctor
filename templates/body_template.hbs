@@ -156,9 +156,9 @@
 
     {{#actions}}
         {{#if this.result_type}}
-            - (Promise<{{this.result_type.name}}*>*)send{{this.type.simple_name}}:({{this.type.name}}BuilderBlock)builderBlock
+            - (Promise<{{this.result_type.name}}*>*)send{{this.type.name}}:({{this.type.name}}BuilderBlock)builderBlock
         {{else}}
-            - (Promise *)send{{this.type.simple_name}}:({{this.type.name}}BuilderBlock)builderBlock
+            - (Promise *)send{{this.type.name}}:({{this.type.name}}BuilderBlock)builderBlock
         {{/if}}
         {
         return [self sendAction:[{{this.type.name}} create:builderBlock]];

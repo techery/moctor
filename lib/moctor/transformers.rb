@@ -14,10 +14,10 @@ class ObjcTypeTransformer
 
   def transform(types)
     transformed_types = types.values.map do |type|
-      new_name = TYPES_MAPPING[type.name] || type.name
+      new_name = TYPES_MAPPING[type.name] || "#{prefix}#{type.name}"
 
       new_type = type.clone.tap do |t|
-        t.name = "#{prefix}#{new_name}"
+        t.name = new_name
       end
 
       [new_name, new_type]

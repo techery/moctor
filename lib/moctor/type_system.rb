@@ -11,10 +11,10 @@ module Moctor
 
     def initialize
       @types = {
-        bool:   TypeDefinition.new(:bool),
-        float:  TypeDefinition.new(:float),
-        int:    TypeDefinition.new(:int),
-        string: TypeDefinition.new(:string)
+        bool:   PrimitiveTypeDefinition.new(:bool),
+        float:  PrimitiveTypeDefinition.new(:float),
+        int:    PrimitiveTypeDefinition.new(:int),
+        string: PrimitiveTypeDefinition.new(:string)
       }
 
       @interfaces  = {}
@@ -59,8 +59,9 @@ module Moctor
     end
   end
 
-  PropDefinition       = Struct.new(:name, :type, :validations)
-  ValidationDefinition = Struct.new(:name, :args)
+  PropDefinition          = Struct.new(:name, :type, :validations)
+  PrimitiveTypeDefinition = Struct.new(:name)
+  ValidationDefinition    = Struct.new(:name, :args)
 
   class Lang
     def interface(name, &block)

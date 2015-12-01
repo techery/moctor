@@ -7,12 +7,12 @@ module Moctor
 
       def initialize(types)
         @types = types
-        @template_file = File.expand_path('../../../templates/body_template.hbs')
+        @template_file = File.expand_path("#{__dir__}/../../../templates/body_template.hbs")
       end
 
       def render
         models = self.types.values.select do |type|
-          type.is_a? ModelDefinition
+          type.is_a? TypeDefinition
         end
 
         actors = self.types.values.select do |type|

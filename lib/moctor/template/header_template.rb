@@ -1,5 +1,4 @@
 require_relative 'base_template'
-require 'pp'
 
 module Moctor
   module Template
